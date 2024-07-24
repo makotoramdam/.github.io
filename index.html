@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムひらがなジェネレーター</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #titleImage {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        #randomHiragana {
+            font-size: 2em;
+            margin: 20px;
+        }
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+        }
+        .special {
+            background-size: cover;
+            color: transparent;
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+        }
+        .special.ma {
+            background-image: url('ma.png'); /* 'ま' の画像ファイル名 */
+        }
+        .special.ko {
+            background-image: url('ko.png'); /* 'こ' の画像ファイル名 */
+        }
+        .special.to {
+            background-image: url('to.png'); /* 'と' の画像ファイル名 */
+        }
+    </style>
+</head>
+<body>
+    <img id="titleImage" src="title.jpg" alt="タイトル画像"> <!-- タイトル画像ファイル名を指定 -->
+    <h1>ランダムひらがなジェネレーター</h1>
+    <div id="randomHiragana">ここにひらがなが表示されます</div>
+    <button onclick="generateRandomHiragana()">ランダムに3つのひらがなを表示</button>
+
+    <script>
+        function generateRandomHiragana() {
+            const hiragana = [
+                'あ', 'い', 'う', 'え', 'お',
+                'く', 'け', 'こ', 'き', 'し',
+                'せ', 'た', 'ち', 'て', 'と',
+                'な', 'に', 'は', 'ひ', 'へ',
+                'ほ', 'ま', 'ん'
+            ];
+
+            const randomHiragana = [];
+            while (randomHiragana.length < 3) {
+                const randomIndex = Math.floor(Math.random() * hiragana.length);
+                const randomChar = hiragana[randomIndex];
+                if (!randomHiragana.includes(randomChar)) {
+                    randomHiragana.push(randomChar);
+                }
+            }
+
+            const displayHiragana = randomHiragana.map(char => {
+                switch(char) {
+                    case 'ま':
+                        return `<span class="special ma">${char}</span>`;
+                    case 'こ':
+                        return `<span class="special ko">${char}</span>`;
+                    case 'と':
+                        return `<span class="special to">${char}</span>`;
+                    default:
+                        return char;
+                }
+            });
+
+            document.getElementById('randomHiragana').innerHTML = displayHiragana.join(' ');
+
+            // チェック「まこと」の文字が揃ったかどうか
+            if (randomHiragana.includes('ま') && randomHiragana.includes('こ') && randomHiragana.includes('と')) {
+                alert('「まこと」が揃いました！');
+            }
+        }
+    </script>
+</body>
+</html>
